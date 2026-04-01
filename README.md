@@ -22,7 +22,7 @@ mv ~/.local/share/nvim ~/.local/share/nvim.bak
 ### Clone this config
 
 ```bash
-git clone https://github.com/yourusername/nvim ~/.config/nvim
+git clone https://github.com/MrClaro/nvim ~/.config/nvim
 ```
 
 ### Install dependencies
