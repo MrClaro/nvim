@@ -173,9 +173,20 @@ vim.api.nvim_create_autocmd("VimEnter", {
 -- =============================================================================
 -- 7. Buffers
 -- =============================================================================
+keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "Close buffer" })
 keymap.set("n", "<tab>", "<cmd>bnext<CR>", opts)
 keymap.set("n", "<s-tab>", "<cmd>bprevious<CR>", opts)
-keymap.set("n", "<leader>bd", "<cmd>bp<bar>bd #<CR>", { desc = "Close buffer" })
+keymap.set("n", "<leader>bd", function()
+  local buf = vim.api.nvim_get_current_buf()
+  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+
+  if #buffers <= 1 then
+    vim.cmd("bd!")
+  else
+    vim.cmd("bp")
+    vim.cmd("bd " .. buf)
+  end
+end, { desc = "Close buffer" })
 keymap.set("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
 
 -- Closes all buffers to the left of the current one

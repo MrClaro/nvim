@@ -57,7 +57,7 @@ return {
       "desktop",
       "blade",
       "markdown",
-      "mdx",
+      --       "mdx",
 
       "doxygen",
       "re2c",

@@ -10,10 +10,12 @@ return {
         use_git_branch = true,
         autosave = true,
         autoload = true,
+
         on_autoload_no_session = function()
-          vim.notify("No existing session to load.")
+          require("alpha").start(true)
         end,
       })
+
       vim.keymap.set("n", "<leader>ss", "<cmd>SessionSave<cr>", { desc = "Save session" })
       vim.keymap.set("n", "<leader>sl", "<cmd>SessionLoad<cr>", { desc = "Load session" })
     end,
