@@ -23,7 +23,7 @@ return {
 				desc = "Flash treesitter",
 			},
 			{
-				"r",
+				"Zr",
 				mode = "o",
 				function()
 					require("flash").remote()
@@ -31,7 +31,7 @@ return {
 				desc = "Remote flash",
 			},
 			{
-				"R",
+				"ZR",
 				mode = { "o", "x" },
 				function()
 					require("flash").treesitter_search()
@@ -58,6 +58,9 @@ return {
 					enable_close = true,
 					enable_rename = true,
 					enable_close_on_slash = false,
+					skip_tags = {
+						"rust",
+					},
 				},
 				per_filetype = {
 					["html"] = { enable_close = false },

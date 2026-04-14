@@ -85,7 +85,7 @@ keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { desc = "chmod +x", silent
 
 -- Source of current file (useful when editing configs)
 keymap.set("n", "<leader><leader>", function()
-  vim.cmd("so")
+	vim.cmd("so")
 end, { desc = "Source file" })
 
 -- Restart LSP
@@ -144,30 +144,30 @@ keymap.set("n", "<A-p>", "<cmd>lprev<CR>zz", { desc = "Loclist prev" })
 
 -- Add line below/above without entering insert mode (overrides the default behavior of o/O)
 vim.schedule(function()
-  vim.keymap.set("n", "<leader>o", "o<Esc>", opts)
-  vim.keymap.set("n", "<leader>O", "O<Esc>", opts)
+	vim.keymap.set("n", "<leader>o", "o<Esc>", opts)
+	vim.keymap.set("n", "<leader>O", "O<Esc>", opts)
 end)
 
 -- LSP diagnostics
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspDiagnostics", {}),
-  callback = function()
-    vim.keymap.set("n", "<C-j>", function()
-      vim.diagnostic.jump({ count = 1, float = true })
-    end, { buffer = true, desc = "Next diagnostic" })
-    vim.keymap.set("n", "<C-k>", function()
-      vim.diagnostic.jump({ count = -1, float = true })
-    end, { buffer = true, desc = "Previous diagnostic" })
-  end,
+	group = vim.api.nvim_create_augroup("UserLspDiagnostics", {}),
+	callback = function()
+		vim.keymap.set("n", "<C-j>", function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end, { buffer = true, desc = "Next diagnostic" })
+		vim.keymap.set("n", "<C-k>", function()
+			vim.diagnostic.jump({ count = -1, float = true })
+		end, { buffer = true, desc = "Previous diagnostic" })
+	end,
 })
 
 -- LazyGit
 vim.api.nvim_create_autocmd("VimEnter", {
-  group = vim.api.nvim_create_augroup("UserLazyGit", {}),
-  callback = function()
-    pcall(vim.keymap.del, "n", "<leader>l")
-    vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "LazyGit" })
-  end,
+	group = vim.api.nvim_create_augroup("UserLazyGit", {}),
+	callback = function()
+		pcall(vim.keymap.del, "n", "<leader>l")
+		vim.keymap.set("n", "<leader>lg", "<cmd>LazyGit<CR>", { desc = "LazyGit" })
+	end,
 })
 
 -- =============================================================================
@@ -177,58 +177,58 @@ keymap.set("n", "<leader>q", "<cmd>bd<CR>", { desc = "Close buffer" })
 keymap.set("n", "<tab>", "<cmd>bnext<CR>", opts)
 keymap.set("n", "<s-tab>", "<cmd>bprevious<CR>", opts)
 keymap.set("n", "<leader>bd", function()
-  local buf = vim.api.nvim_get_current_buf()
-  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	local buf = vim.api.nvim_get_current_buf()
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
 
-  if #buffers <= 1 then
-    vim.cmd("bd!")
-  else
-    vim.cmd("bp")
-    vim.cmd("bd " .. buf)
-  end
+	if #buffers <= 1 then
+		vim.cmd("bd!")
+	else
+		vim.cmd("bp")
+		vim.cmd("bd " .. buf)
+	end
 end, { desc = "Close buffer" })
 keymap.set("n", "<leader>bn", "<cmd>enew<CR>", { desc = "New buffer" })
 
 -- Closes all buffers to the left of the current one
 vim.keymap.set("n", "<leader>bh", function()
-  local current = vim.fn.bufnr("%")
-  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-  for _, buf in ipairs(buffers) do
-    if buf.bufnr < current then
-      vim.cmd("bd " .. buf.bufnr)
-    end
-  end
+	local current = vim.fn.bufnr("%")
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	for _, buf in ipairs(buffers) do
+		if buf.bufnr < current then
+			vim.cmd("bd " .. buf.bufnr)
+		end
+	end
 end, { desc = "Close buffers to the left" })
 
 -- Closes all buffers to the right of the current one
 vim.keymap.set("n", "<leader>bl", function()
-  local current = vim.fn.bufnr("%")
-  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-  for _, buf in ipairs(buffers) do
-    if buf.bufnr > current then
-      vim.cmd("bd " .. buf.bufnr)
-    end
-  end
+	local current = vim.fn.bufnr("%")
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	for _, buf in ipairs(buffers) do
+		if buf.bufnr > current then
+			vim.cmd("bd " .. buf.bufnr)
+		end
+	end
 end, { desc = "Close buffers to the right" })
 
 -- Closes all buffers except the current one
 vim.keymap.set("n", "<leader>bo", function()
-  local current = vim.fn.bufnr("%")
-  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
-  for _, buf in ipairs(buffers) do
-    if buf.bufnr ~= current then
-      vim.cmd("bd " .. buf.bufnr)
-    end
-  end
+	local current = vim.fn.bufnr("%")
+	local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+	for _, buf in ipairs(buffers) do
+		if buf.bufnr ~= current then
+			vim.cmd("bd " .. buf.bufnr)
+		end
+	end
 end, { desc = "Close all other buffers" })
 
 -- =============================================================================
 -- 8. FallBack
 -- =============================================================================
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight yanked text",
-  group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank({ timeout = 200 })
-  end,
+	desc = "Highlight yanked text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank({ timeout = 200 })
+	end,
 })

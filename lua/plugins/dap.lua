@@ -24,6 +24,7 @@ return {
 					"js-debug-adapter",
 					"python",
 					"php",
+					"codelldb",
 				},
 				automatic_installation = true,
 				handlers = {},
