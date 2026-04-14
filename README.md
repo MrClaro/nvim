@@ -64,7 +64,8 @@ nvim --headless "+Lazy! sync" +qa
 | `<Space>fg` | Telescope: Git files |
 | `<Space>/` | Telescope: Live grep |
 | `<Space>fw` | Telescope: Grep word under cursor |
-| `<Space>fs` | Telescope: Search in project |
+| `<Space>fs` | Telescope: Document symbols |
+| `<Space>fS` | Telescope: Workspace symbols |
 | `<Space>fb` | Telescope: Open buffers |
 | `<Space>fd` | Telescope: Diagnostics |
 | `<Space>fD` | Telescope: LSP definitions |
@@ -137,6 +138,7 @@ nvim --headless "+Lazy! sync" +qa
 | `<Space>k` | Signature help |
 | `<Space>rn` | Rename symbol |
 | `<Space>ca` | Code action |
+| `<Space>ca` | Code action (visual) |
 | `<Space>dl` | Diagnostic float |
 | `<Ctrl-j>` | Next diagnostic |
 | `<Ctrl-k>` | Previous diagnostic |
@@ -157,13 +159,13 @@ nvim --headless "+Lazy! sync" +qa
 
 ---
 
-### File Explorer (Neo-tree)
+### File Explorer (Oil)
 
 | Key | Description |
 |-----|-------------|
 | `<Space>e` | Toggle file explorer |
 | `<Space>E` | Focus file explorer |
-| `<Space>ge` | Git status (Neotree) |
+| `<Space>ge` | Git status (Oil) |
 
 ---
 
@@ -347,10 +349,10 @@ nvim --headless "+Lazy! sync" +qa
 
 ### Editor
 
-- **neo-tree.nvim** - File explorer
+- **oil.nvim** - File explorer
 - **telescope.nvim** - Fuzzy finder
 - **mini.nvim** - Mini plugins suite
-- **snacks.nvim** - Dashboard and utilities
+- **alpha.nvim** - Dashboard
 
 ### UI
 
