@@ -23,6 +23,9 @@ return {
 					local map = function(keys, func, desc)
 						vim.keymap.set("n", keys, func, { buffer = buf, desc = desc })
 					end
+					local vmap = function(keys, func, desc)
+						vim.keymap.set("v", keys, func, { buffer = buf, desc = desc })
+					end
 					pcall(vim.keymap.del, "n", "K", { buffer = buf })
 					map("K", "mzK`z", "Join lines up")
 
@@ -35,6 +38,7 @@ return {
 					map("<leader>k", vim.lsp.buf.signature_help, "Signature help")
 					map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
 					map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+					vmap("<leader>ca", vim.lsp.buf.code_action, "Code action (visual)")
 					map("<leader>dl", vim.diagnostic.open_float, "Diagnostic float")
 				end,
 			})
