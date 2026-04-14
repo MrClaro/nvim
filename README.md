@@ -329,7 +329,7 @@ nvim --headless "+Lazy! sync" +qa
 | `=` | Reindent paragraph |
 | `+` | Increment number |
 | `-` | Decrement number |
-| `<Ctrl-a>` | Select all |
+| `<Ctrl-a>` | Ask opencode (AI) |
 | `<Alt-o>` | Add blank line below |
 | `<Alt-O>` | Add blank line above |
 | `<Space>o` | Add line below |
@@ -351,27 +351,34 @@ nvim --headless "+Lazy! sync" +qa
 
 - **oil.nvim** - File explorer
 - **telescope.nvim** - Fuzzy finder
-- **mini.nvim** - Mini plugins suite
-- **alpha.nvim** - Dashboard
+- **mini.nvim** - Textobjects, surround, cursorword, move, hipatterns
+- **harpoon.nvim** - Project navigation
+- **nvim-ts-autotag** - Auto close/rename tags
 
 ### UI
 
-- **catppuccin** - Colorscheme
+- **noirbuddy** - Colorscheme
 - **noice.nvim** - Messages UI
 - **lualine.nvim** - Status line
 - **bufferline.nvim** - Buffer tabs
 - **trouble.nvim** - Diagnostics viewer
+- **incline.nvim** - Floating filename
+- **which-key.nvim** - Keybindings popup
+- **fidget.nvim** - LSP progress
+- **nvim-notify** - Notifications
 
 ### Git
 
 - **lazygit.nvim** - TUI git client
 - **gitsigns.nvim** - Git signs
 - **diffview.nvim** - Git diff viewer
+- **advanced-git-search.nvim** - Advanced git search
 
 ### AI
 
 - **avante.nvim** - AI assistant (Claude/Moonshot)
-- **copilot.lua** - GitHub Copilot
+- **opencode.nvim** - AI pair programmer
+- **snacks.nvim** - Utility framework (used by avante/opencode)
 
 ### Debug
 
@@ -379,6 +386,7 @@ nvim --headless "+Lazy! sync" +qa
 - **nvim-dap-ui** - DAP UI
 - **nvim-dap-python** - Python debug
 - **nvim-dap-go** - Go debug
+- **rustaceanvim** - Rust debug & LSP
 
 ### Productivity
 
@@ -387,6 +395,8 @@ nvim --headless "+Lazy! sync" +qa
 - **refactoring.nvim** - Refactoring tools
 - **neogen** - Docstring generation
 - **zen-mode.nvim** - Focus mode
+- **undotree** - Undo history tree
+- **cloak.nvim** - Environment variable cloaking
 
 ### Mobile
 
@@ -397,7 +407,7 @@ nvim --headless "+Lazy! sync" +qa
 
 Treesitter parsers for: bash, c, cpp, css, dart, dockerfile, go, html, java, javascript, jsx, json, kotlin, lua, markdown, php, python, ruby, rust, sql, typescript, tsx, vue, yaml, and more.
 
-LSP servers: angularls, cssls, dockerls, html, jsonls, kotlin_language_server, lua_ls, marksman, pyright, tailwindcss, tsserver, and more.
+LSP servers: cssls, docker_compose_language_service, dockerls, html, jsonls, kotlin_language_server, lua_ls, marksman, pyright, tailwindcss, and more. Rust support via rustaceanvim (rust-analyzer).
 
 ## Credits
 
