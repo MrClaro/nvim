@@ -1,0 +1,235 @@
+-- Nvim cmp with luasnip and friendly-snippets
+-- return {
+--   "hrsh7th/nvim-cmp",
+--   dependencies = {
+--     {
+--       "L3MON4D3/LuaSnip",
+--       build = (function()
+--         if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+--           return
+--         end
+--         return "make install_jsregexp"
+--       end)(),
+--       dependencies = {
+--         {
+--           "rafamadriz/friendly-snippets",
+--           config = function()
+--             require("luasnip.loaders.from_vscode").lazy_load()
+--           end,
+--         },
+--       },
+--     },
+--     "hrsh7th/cmp-nvim-lua",
+--     "hrsh7th/cmp-cmdline",
+--     "hrsh7th/cmp-emoji",
+--     "saadparwaiz1/cmp_luasnip",
+--     "hrsh7th/cmp-nvim-lsp",
+--     "hrsh7th/cmp-buffer",
+--     "hrsh7th/cmp-path",
+--     "SergioRibera/cmp-dotenv",
+--     {
+--       "zbirenbaum/copilot-cmp",
+--       dependencies = {
+--         {
+--           "zbirenbaum/copilot.lua",
+--           cmd = "Copilot",
+--           event = "InsertEnter",
+--           config = function()
+--             require("copilot").setup({
+--               suggestion = { enabled = false },
+--               panel = { enabled = false },
+--             })
+--           end,
+--         },
+--         {
+--           "rafamadriz/friendly-snippets",
+--           config = function()
+--             require("luasnip.loaders.from_vscode").lazy_load()
+--           end,
+--         },
+--       },
+--       config = function()
+--         require("copilot_cmp").setup()
+--       end,
+--     },
+--     { "roobert/tailwindcss-colorizer-cmp.nvim", config = true },
+--     {
+--       "folke/lazydev.nvim",
+--       ft = "lua",
+--       opts = {
+--         library = {
+--           { path = "luvit-meta/library", words = { "vim%.uv" } },
+--         },
+--       },
+--     },
+--   },
+--
+--   config = function()
+--     local cmp = require("cmp")
+--     local luasnip = require("luasnip")
+--
+--     local ok, custom_angular_snippets = pcall(require, "snippets.angular")
+--     if ok and type(custom_angular_snippets) == "table" and not vim.tbl_isempty(custom_angular_snippets) then
+--       luasnip.add_snippets("htmlangular", custom_angular_snippets)
+--     end
+--
+--     luasnip.filetype_extend("javascriptreact", { "html" })
+--     luasnip.filetype_extend("typescriptreact", { "html" })
+--     luasnip.filetype_extend("htmlangular", { "html" })
+--
+--     luasnip.config.setup({
+--       history = true,
+--       updateevents = "InsertLeave",
+--       enable_autosnippets = true,
+--
+--       ext_opts = {
+--         [require("luasnip.util.types").choiceNode] = {
+--           active = { virt_text = { { "●", "Orange" } } },
+--         },
+--       },
+--     })
+--
+--     local kind_icons = {
+--       Text = "󰉿",
+--       Method = "󰆧",
+--       Function = "󰊕",
+--       Constructor = "",
+--       Field = "󰜢",
+--       Variable = "󰀫",
+--       Class = "󰠱",
+--       Interface = "",
+--       Module = "",
+--       Property = "󰜢",
+--       Unit = "󰑭",
+--       Value = "󰎠",
+--       Enum = "",
+--       Keyword = "󰌋",
+--       Snippet = "",
+--       Color = "󰏘",
+--       File = "󰈙",
+--       Reference = "󰈇",
+--       Folder = "󰉋",
+--       EnumMember = "",
+--       Constant = "󰏿",
+--       Struct = "󰙅",
+--       Event = "",
+--       Operator = "󰆕",
+--       TypeParameter = "󰏿",
+--       Copilot = "",
+--     }
+--
+--     cmp.setup({
+--       window = {
+--         completion = cmp.config.window.bordered(),
+--         documentation = cmp.config.window.bordered(),
+--       },
+--       snippet = {
+--         expand = function(args)
+--           luasnip.lsp_expand(args.body)
+--         end,
+--       },
+--       completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
+--
+--       mapping = cmp.mapping.preset.insert({
+--         ["<C-n>"] = cmp.mapping.select_next_item(),
+--         ["<C-p>"] = cmp.mapping.select_prev_item(),
+--         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+--         ["<C-d>"] = cmp.mapping.scroll_docs(4),
+--         ["<CR>"] = cmp.mapping.confirm({ select = true }),
+--         ["<C-Space>"] = cmp.mapping.complete({}),
+--         ["<C-l>"] = cmp.mapping(function()
+--           if luasnip.expand_or_locally_jumpable() then
+--             luasnip.expand_or_jump()
+--           end
+--         end, { "i", "s" }),
+--         ["<C-h>"] = cmp.mapping(function()
+--           if luasnip.locally_jumpable(-1) then
+--             luasnip.jump(-1)
+--           end
+--         end, { "i", "s" }),
+--         ["<Tab>"] = cmp.mapping(function(fallback)
+--           if cmp.visible() then
+--             cmp.select_next_item()
+--           elseif luasnip.expand_or_locally_jumpable() then
+--             luasnip.expand_or_jump()
+--           else
+--             fallback()
+--           end
+--         end, { "i", "s" }),
+--         ["<S-Tab>"] = cmp.mapping(function(fallback)
+--           if cmp.visible() then
+--             cmp.select_prev_item()
+--           elseif luasnip.locally_jumpable(-1) then
+--             luasnip.jump(-1)
+--           else
+--             fallback()
+--           end
+--         end, { "i", "s" }),
+--       }),
+--
+--       sources = cmp.config.sources({
+--         { name = "lazydev",  group_index = 0 },
+--         { name = "copilot",  priority = 1000 },
+--         { name = "nvim_lsp", priority = 900 },
+--         { name = "luasnip",  priority = 800 },
+--         { name = "dotenv",   priority = 700, option = { path = ".", load_shell = false } },
+--         { name = "buffer",   priority = 500, keyword_length = 3 },
+--         { name = "path",     priority = 400 },
+--       }),
+--
+--       formatting = {
+--         fields = { "kind", "abbr", "menu" },
+--         format = function(entry, vim_item)
+--           vim_item.kind = string.format("%s", kind_icons[vim_item.kind] or "")
+--
+--           local detail = (entry.completion_item.labelDetails or {}).detail
+--
+--           vim_item.menu = ({
+--             copilot = "[AI]",
+--             nvim_lsp = "[LSP]",
+--             luasnip = "[Snip]",
+--             buffer = "[Buf]",
+--             path = "[Path]",
+--             dotenv = "[Env]",
+--             lazydev = "[Dev]",
+--           })[entry.source.name]
+--           return require("tailwindcss-colorizer-cmp").formatter(entry, vim_item)
+--         end,
+--       },
+--
+--       performance = {
+--         debounce = 60,
+--         throttle = 30,
+--         fetching_timeout = 500,
+--         max_view_entries = 20,
+--         filtering_context_budget = 200,
+--         confirm_resolve_timeout = 800,
+--         async_budget = 100,
+--       },
+--     })
+--
+--     cmp.setup.cmdline("/", {
+--       mapping = cmp.mapping.preset.cmdline(),
+--       sources = {
+--         { name = "buffer" },
+--       },
+--     })
+--
+--     cmp.setup.cmdline(":", {
+--       mapping = cmp.mapping.preset.cmdline(),
+--       sources = cmp.config.sources({
+--         { name = "path" },
+--       }, {
+--         { name = "cmdline" },
+--       }),
+--       matching = {
+--         disallow_symbol_nonprefix_matching = false,
+--         disallow_fullfuzzy_matching = false,
+--         disallow_partial_fuzzy_matching = false,
+--         disallow_partial_matching = false,
+--         disallow_prefix_unmatching = false,
+--         disallow_fuzzy_matching = false,
+--       },
+--     })
+--   end,
+-- }
