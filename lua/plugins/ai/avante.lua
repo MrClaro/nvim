@@ -3,7 +3,7 @@ return {
 	event = "VeryLazy",
 	version = false,
 	build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-		or "make",
+		or "LUA_VERSION=luajit bash ./build.sh https://github.com/avante-corp/avante.nvim.git",
 	---@module "avante"
 	---@type avante.Config
 	opts = {
