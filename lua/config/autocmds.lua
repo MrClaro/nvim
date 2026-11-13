@@ -77,3 +77,27 @@ vim.api.nvim_create_user_command("KeymapsExport", function()
 end, {
 	desc = "Export keymaps to KEYMAPS.md",
 })
+
+-- =============================================================================
+-- Markdown/Text wrapping
+-- =============================================================================
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("UserMarkdownText", { clear = true }),
+	pattern = {
+		"markdown",
+		"mdx",
+		"text",
+		"gitcommit",
+	},
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.breakindent = true
+		vim.opt_local.showbreak = "↳ "
+		vim.opt_local.textwidth = 0
+		vim.opt_local.wrapmargin = 0
+		vim.opt_local.spell = true
+		vim.opt_local.spelllang = { "en_us", "pt_br" }
+	end,
+})
