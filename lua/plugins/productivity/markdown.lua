@@ -88,9 +88,7 @@ return {
 			"markdown",
 			"mdx",
 		},
-		build = function()
-			vim.fn["mkdp#util#install"]()
-		end,
+		build = "bash ./app/install.sh",
 		keys = {
 			{
 				"<leader>mp",
