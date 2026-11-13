@@ -9,18 +9,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "Configure LSP keymaps",
 	callback = function(event)
 		local bufnr = event.buf
-		local client = vim.lsp.get_client_by_id(event.data.client_id)
-
-		-- Java / JDTLS inlay hints patch
-		if client and client.name == "jdtls" then
-			client.server_capabilities.inlayHintProvider = true
-
-			vim.defer_fn(function()
-				if vim.api.nvim_buf_is_valid(bufnr) and vim.lsp.inlay_hint then
-					vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-				end
-			end, 2500)
-		end
 
 		local map = function(mode, lhs, rhs, desc)
 			vim.keymap.set(mode, lhs, rhs, {
@@ -47,6 +35,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		map("v", "<leader>ca", vim.lsp.buf.code_action, "Code action")
 
 		map("n", "<leader>dl", vim.diagnostic.open_float, "Diagnostic float")
+
+		map("n", "<leader>co", function()
+			vim.lsp.buf.code_action({
+				context = {
+					only = {
+						"source.organizeImports",
+					},
+					diagnostics = {},
+				},
+				apply = true,
+			})
+		end, "Code: Organize imports")
 
 		map("n", "<C-j>", function()
 			vim.diagnostic.jump({

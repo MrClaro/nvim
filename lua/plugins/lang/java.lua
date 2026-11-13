@@ -20,6 +20,12 @@ return {
 					},
 				},
 			},
+
+			handlers = {
+				["workspace/executeClientCommand"] = function(_, _, _, _)
+					return {}
+				end,
+			},
 		})
 
 		require("java").setup({
