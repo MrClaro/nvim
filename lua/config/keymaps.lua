@@ -286,3 +286,22 @@ map("n", "<leader>bo", function()
 end, {
 	desc = "Close all other buffers",
 })
+
+-- =============================================================================
+-- AI SUGGESTIONS
+-- =============================================================================
+vim.keymap.set("i", "<M-;>", function()
+	local ok, suggestion = pcall(require, "copilot.suggestion")
+
+	if not ok then
+		return
+	end
+
+	if suggestion.is_visible() then
+		suggestion.accept()
+	else
+		suggestion.next()
+	end
+end, {
+	desc = "Copilot: show/accept suggestion",
+})

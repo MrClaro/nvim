@@ -14,7 +14,17 @@ return {
 			event = "InsertEnter",
 			opts = {
 				suggestion = {
-					enabled = false,
+					enabled = true,
+					auto_trigger = false,
+					hide_during_completion = false,
+					keymap = {
+						accept = "<M-l>",
+						accept_word = "<M-w>",
+						accept_line = "<M-L>",
+						next = "<M-]>",
+						prev = "<M-[>",
+						dismiss = "<C-]>",
+					},
 				},
 				panel = {
 					enabled = false,
@@ -56,10 +66,13 @@ return {
 
 	opts = {
 		keymap = {
-			preset = "default",
+			preset = "none",
 
 			["<C-n>"] = { "select_next", "fallback" },
 			["<C-p>"] = { "select_prev", "fallback" },
+
+			["<C-j>"] = { "select_next", "fallback" },
+			["<C-k>"] = { "select_prev", "fallback" },
 
 			["<C-u>"] = { "scroll_documentation_up", "fallback" },
 			["<C-d>"] = { "scroll_documentation_down", "fallback" },
@@ -67,18 +80,31 @@ return {
 			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 
-			-- Safer than always accepting completion aggressively.
 			["<CR>"] = { "accept", "fallback" },
 
 			["<Tab>"] = {
-				"snippet_forward",
-				"select_next",
+				function(cmp)
+					if cmp.is_visible() then
+						return cmp.accept()
+					end
+
+					if cmp.snippet_active({ direction = 1 }) then
+						return cmp.snippet_forward()
+					end
+				end,
 				"fallback",
 			},
 
 			["<S-Tab>"] = {
-				"snippet_backward",
-				"select_prev",
+				function(cmp)
+					if cmp.snippet_active({ direction = -1 }) then
+						return cmp.snippet_backward()
+					end
+
+					if cmp.is_visible() then
+						return cmp.select_prev()
+					end
+				end,
 				"fallback",
 			},
 
@@ -120,13 +146,14 @@ return {
 		completion = {
 			documentation = {
 				auto_show = true,
-				auto_show_delay_ms = 400,
+				auto_show_delay_ms = 50,
 				window = {
 					border = "rounded",
 				},
 			},
 
 			menu = {
+				auto_show = true,
 				border = "rounded",
 				draw = {
 					columns = {
@@ -186,6 +213,12 @@ return {
 							end,
 						},
 					},
+				},
+			},
+
+			accept = {
+				auto_brackets = {
+					enabled = true,
 				},
 			},
 
